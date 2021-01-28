@@ -44,7 +44,7 @@ jobs:
           github_access_token: ${{ secrets.ACCESS_TOKEN }}
           # The directory of the angular project, in which all the commands will run
           angular_project_dir: ./frontend
-          angular_dist_build_folder: dist/frontend
+          angular_dist_build_folder: frontend/dist/frontend
           # Build configuration for the angular app
 #           build_configuration: # optional, default is production
           # base href for the app
