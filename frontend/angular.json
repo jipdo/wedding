@@ -37,7 +37,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "https://jipdo.github.io/wedding/",
+              "baseHref": "/wedding/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
