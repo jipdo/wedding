@@ -17,7 +17,7 @@ export class TestComponent implements OnInit, AfterViewInit{
 
   public context!: CanvasRenderingContext2D;
 
-  constructor(private _scrollEvent: ScrollEventService) {}
+  constructor(private scrollEvent: ScrollEventService) {}
 
   ngOnInit(): void {
   }
@@ -25,7 +25,7 @@ export class TestComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     this.context = this.canvas.nativeElement.getContext('2d')!;
 
-    this._scrollEvent.$scrollEvent
+    this.scrollEvent.$scrollEvent
       .pipe(
         map(() => window.scrollY / (document.documentElement.scrollHeight - document.documentElement.clientHeight)),
         map((p) => Math.ceil(p * 100)),
