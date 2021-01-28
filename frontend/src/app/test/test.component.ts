@@ -17,8 +17,7 @@ export class TestComponent implements OnInit, AfterViewInit{
 
   public context!: CanvasRenderingContext2D;
 
-  constructor(private _scrollEvent: ScrollEventService) {
-  }
+  constructor(private _scrollEvent: ScrollEventService) {}
 
   ngOnInit(): void {
   }

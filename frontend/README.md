@@ -1,4 +1,10 @@
-# Frontend
+# Design
+
+Each scene has a corresponding angular component. Each scene component receives frame number.
+
+A scene runner component lazy-loads appropriate scenes one at a time.
+
+# Implementation
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
 
