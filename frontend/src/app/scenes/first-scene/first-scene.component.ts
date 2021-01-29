@@ -40,8 +40,9 @@ export class FirstSceneComponent implements OnInit, AfterViewInit {
     const offsetTop = 96;
     const offsetBottom = 75;
     const objHeight = 40;
+    const imageOffsetLeft = 200;
     const pos = {
-      x: 174,
+      x: 174 + imageOffsetLeft,
       y: offsetTop + (height - offsetTop - offsetBottom - objHeight) * f / this.numFrame,
       width: 305,
       height: objHeight,
@@ -55,7 +56,7 @@ export class FirstSceneComponent implements OnInit, AfterViewInit {
     this.ctx.fillText('Wedding!', pos.x + pos.width / 3, pos.y + pos.height * 2 / 3);
 
 
-    this.ctx.drawImage(this.handImage.nativeElement, 0, 0);
+    this.ctx.drawImage(this.handImage.nativeElement, imageOffsetLeft, 0);
     // draw hand
   }
 
