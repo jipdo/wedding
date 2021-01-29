@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angula
 
 import { ProgressFrameService } from '../progress-frame.service';
 import { Scene, SceneCollection } from '../scene';
-import { SNSScene } from '../scenes';
+import { totalScene } from '../scenes';
 
 @Component({
   selector: 'app-scene-manager',
@@ -14,10 +14,10 @@ export class SceneManagerComponent implements OnInit, AfterViewInit {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   ctx!: CanvasRenderingContext2D;
-  numFrame = 1000;
-  scene!: Scene;
+  scene: Scene;
 
   constructor(private progressFrameService: ProgressFrameService) {
+    this.scene = totalScene;
   }
 
   ngOnInit(): void {}
@@ -26,16 +26,15 @@ export class SceneManagerComponent implements OnInit, AfterViewInit {
     this.ctx = this.canvas.nativeElement.getContext('2d')!;
     this.ctx.canvas.width  = window.innerWidth;
     this.ctx.canvas.height = window.innerHeight;
-    const size = {height: this.ctx.canvas.height, width: this.ctx.canvas.width};
-
-    this.scene = new SceneCollection(
-      new SNSScene(this.numFrame),
-      new SNSScene(this.numFrame),
-      new SNSScene(this.numFrame),
-    );
 
     this.progressFrameService.watchProgress(this.scene.numFrame)
-      .subscribe(f => this.scene.draw(this.ctx, size, f));
+      .subscribe(f => this.draw(f));
+  }
+
+  draw(frameNum: number): void {
+    const size = {height: this.ctx.canvas.height, width: this.ctx.canvas.width};
+    this.ctx.clearRect(0, 0, size.width, size.height);
+    this.scene.draw(this.ctx, size, frameNum)
   }
 
 }

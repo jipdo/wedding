@@ -1,7 +1,7 @@
-import { Scene } from './scene';
+import { Scene, SceneCollection } from './scene';
 
 
-class SNSScene implements Scene {
+class SNSScrollScene implements Scene {
 
   numFrame: number;
 
@@ -14,11 +14,8 @@ class SNSScene implements Scene {
     size: {height: number; width: number},
     f: number
   ) {
-    ctx.clearRect(0, 0, size.width, size.height);
-
-    ctx.beginPath();
     const offsetTop = 96;
-    const offsetBottom = 75;
+    const offsetBottom = 275;
     const objHeight = 40;
     const imageOffsetLeft = 200;
     const pos = {
@@ -29,7 +26,6 @@ class SNSScene implements Scene {
     };
     ctx.fillStyle = 'grey';
     ctx.fillRect(pos.x, pos.y, pos.width, pos.height);
-    ctx.closePath();
 
     ctx.fillStyle = 'black';
     ctx.font = '30px Arial';
@@ -38,10 +34,68 @@ class SNSScene implements Scene {
     const img: HTMLImageElement = document.getElementById('handImage') as HTMLImageElement;
     ctx.drawImage(img, imageOffsetLeft, 0);
   }
+}
 
+class SNSEnlargeScene implements Scene {
+
+  numFrame: number;
+
+  constructor(numFrame: number) {
+    this.numFrame = numFrame;
+  }
+
+  draw(
+    ctx: CanvasRenderingContext2D,
+    size: {height: number; width: number},
+    f: number
+  ) {
+    const progress = f / this.numFrame
+    const finalHeight = 200;
+    const offsetBottom = 275;
+    const objHeight = 40;
+    const imageOffsetLeft = 200;
+    const pos = {
+      x: 174 + imageOffsetLeft,
+      y: size.height - offsetBottom - objHeight - progress * finalHeight,
+      width: 305,
+      height: objHeight + progress * finalHeight,
+    };
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(pos.x, pos.y, pos.width, pos.height);
+
+    ctx.fillStyle = 'black';
+    ctx.font = '30px Arial';
+    ctx.fillText('Wedding!', pos.x + pos.width / 3, pos.y + pos.height * 2 / 3);
+
+    const img: HTMLImageElement = document.getElementById('handImage') as HTMLImageElement;
+    ctx.drawImage(img, imageOffsetLeft, 0);
+  }
 }
 
 
 
+class WalkScene implements Scene {
 
-export { SNSScene };
+  numFrame: number;
+
+  constructor(numFrame: number) {
+    this.numFrame = numFrame;
+  }
+
+  draw(
+    ctx: CanvasRenderingContext2D,
+    size: {height: number; width: number},
+    f: number
+  ) {
+
+  }
+}
+
+
+const SNSScene = new SceneCollection(
+  new SNSScrollScene(100),
+  new SNSEnlargeScene(10),
+);
+
+
+export const totalScene = new SceneCollection(SNSScene);
