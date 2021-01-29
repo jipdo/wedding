@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { fromEvent, Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 
 @Injectable({
@@ -8,10 +9,14 @@ import { fromEvent, Observable } from 'rxjs';
 })
 export class ScrollEventService {
 
-  $scrollEvent: Observable<Event>;
+  $scrollEvent: Observable<number>;
 
   constructor() {
-    this.$scrollEvent = fromEvent(window, 'scroll');
+    this.$scrollEvent = fromEvent(window, 'scroll')
+      .pipe(
+        map(() => window.scrollY),
+        startWith(0),
+      );
   }
 
 }
